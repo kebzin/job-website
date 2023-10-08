@@ -1,0 +1,45 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "paths": {
+      "@/*": ["./*"]
+    },
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "noEmit": true,
+    "incremental": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "app/signup/page.jsx",
+    "app/signin/page.jsx",
+    "components/Common/Breadcrumb.jsx",
+    "components/About/AboutSectionTwo.jsx",
+    "components/About/AboutSectionOne.jsx",
+    "app/about/page.jsx",
+    "components/Common/SectionTitle.jsx",
+    "components/Common/SectionTitle.jsx",
+    "app/contact/page.jsx",
+    "components/Contact/NewsLatterBox.jsx",
+    "components/Contact/index.jsx",
+    "components/Footer/index.jsx",
+    "components/ScrollToTop/index.jsx",
+    "components/Common/ScrollUp.jsx"
+  ],
+  "exclude": ["node_modules"]
+}

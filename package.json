@@ -1,0 +1,49 @@
+{
+  "name": "jobportalv4",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^3.3.1",
+    "@radix-ui/react-avatar": "^1.0.4",
+    "@radix-ui/react-dialog": "^1.0.5",
+    "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-popover": "^1.0.7",
+    "@radix-ui/react-scroll-area": "^1.0.5",
+    "@radix-ui/react-select": "^2.0.0",
+    "@radix-ui/react-slider": "^1.1.2",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-toast": "^1.1.5",
+    "bcryptjs": "^2.4.3",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
+    "cmdk": "^0.2.0",
+    "lucide-react": "^0.279.0",
+    "mongoose": "^7.5.3",
+    "next": "latest",
+    "next-themes": "^0.2.1",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-hook-form": "^7.46.2",
+    "react-timeago": "^7.2.0",
+    "tailwind-merge": "^1.14.0",
+    "tailwindcss-animate": "^1.0.7",
+    "use-debounce": "^9.0.4",
+    "zod": "^3.22.2"
+  },
+  "devDependencies": {
+    "@types/node": "20.8.0",
+    "@types/react": "18.2.24",
+    "@types/react-timeago": "^4.1.4",
+    "autoprefixer": "latest",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "postcss": "latest",
+    "tailwindcss": "latest"
+  }
+}
