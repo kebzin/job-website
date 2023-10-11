@@ -1,35 +1,38 @@
 "use client";
 import Link from "next/link";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import * as z from "zod";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useTheme } from "next-themes";
+import { signIn } from "next-auth/react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const SigninPage = () => {
-  const { resolvedTheme, setTheme } = useTheme();
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
-  const formSchema = z.object({
-    Email: z.string().min(2).max(50),
-    Password: z.string().min(0).max(1000),
-  });
-  const form = useForm({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      Email: "",
-      Password: "jobe description",
-    },
-  });
+  const { register, handleSubmit } = useForm();
 
+  const onSubmit = async (data) => {
+    setLoading(true);
+    // Call the signIn function with the provided email and password
+    const result = await signIn("credentials", {
+      redirect: false, // Prevent automatic redirect
+      email: data.email, // Get email from the form input
+      password: data.password, // Get password from the form input
+    });
+
+    if (result.error) {
+      // Handle authentication error (e.g., display an error message)
+      setLoading(false);
+      console.error("Sign-in error:", result.error);
+    } else {
+      // Authentication was successful, you can redirect to another page or update UI as needed.
+      console.log("Sign-in successful");
+      // Example: Redirect to the dashboard
+      router.push("/");
+    }
+  };
   return (
     <>
       <section className="relative z-10 overflow-hidden pt-36 pb-16 md:pb-20 lg:pt-[180px] lg:pb-28">
@@ -39,9 +42,11 @@ const SigninPage = () => {
               <div
                 className={`mx-auto max-w-[500px] rounded-md  bg-primary/[10%] bg-opacity-5 py-10 px-6 sm:p-[60px]`}
               >
-                <h3 className="mb-3 text-center text-2xl font-bold sm:text-3xl">
-                  Sign in to your account
-                </h3>
+                {
+                  <h3 className="mb-3 text-center text-2xl font-bold sm:text-3xl">
+                    Sign in to your account
+                  </h3>
+                }
                 <p className="mb-11 text-center text-base font-medium text-body-color">
                   Login to your account for a faster checkout.
                 </p>
@@ -88,7 +93,7 @@ const SigninPage = () => {
                   </p>
                   <span className="hidden h-[1px] w-full max-w-[70px] bg-body-color sm:block"></span>
                 </div>
-                <form>
+                <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="mb-8">
                     <label
                       htmlFor="email"
@@ -97,10 +102,12 @@ const SigninPage = () => {
                       Your Email
                     </label>
                     <input
+                      {...register("email")}
                       type="email"
                       name="email"
                       placeholder="Enter your Email"
                       className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                      onch
                     />
                   </div>
                   <div className="mb-8">
@@ -111,6 +118,7 @@ const SigninPage = () => {
                       Your Password
                     </label>
                     <input
+                      {...register("password")}
                       type="password"
                       name="password"
                       placeholder="Enter your Password"
@@ -161,8 +169,11 @@ const SigninPage = () => {
                     </div>
                   </div>
                   <div className="mb-6">
-                    <button className="flex w-full items-center justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
-                      Sign in
+                    <button
+                      type="submit"
+                      className="flex w-full items-center justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
+                    >
+                      {loading === true ? "Processing request" : "Sign in"}
                     </button>
                   </div>
                 </form>

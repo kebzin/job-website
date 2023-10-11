@@ -4,7 +4,6 @@ const userSchema = new mongoose.Schema(
   {
     FirstName: {
       type: String,
-      required: [true, "First name is required."],
       trim: true,
       maxlength: [50, "First name cannot exceed 50 characters."],
     },
@@ -38,6 +37,8 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "Candidate",
     },
+    skills: [{ type: String }],
+    regonizein: { type: String },
 
     age: {
       type: String,

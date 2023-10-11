@@ -5,7 +5,12 @@ import { useEffect, useState } from "react";
 import menuData from "./menuData";
 import ThemeButton from "./ThemeToggleButton";
 import { Button } from "../ui/button";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { signOut, signIn, useSession } from "next-auth/react";
+import { ToastAction } from "@/components/ui/toast";
+import { useToast } from "@/components/ui/use-toast";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ChevronDown } from "lucide-react";
 
 const Header = () => {
   // Navbar toggle
@@ -13,6 +18,12 @@ const Header = () => {
   const navbarToggleHandler = () => {
     setNavbarOpen(!navbarOpen);
   };
+  const ProfileToggleHandeler = () => {
+    setProfileOpen(!navbarOpen);
+  };
+  const { profileOpen, setProfileOpen } = useState(false);
+
+  const { toast } = useToast();
 
   // Sticky Navbar
   const [sticky, setSticky] = useState(false);
@@ -38,7 +49,36 @@ const Header = () => {
   };
 
   const pathname = usePathname();
-
+  const router = useRouter();
+  const { data: session } = useSession();
+  console.log(session);
+  const HandleNavigatingToPostJob = () => {
+    if (!session?.user) {
+      return toast({
+        variant: "destructive",
+        title: "Uh oh! You are not login  .",
+        description:
+          "To access these  resources and unlock their full potential, you must first log in to your accoun.",
+        action: (
+          <ToastAction onClick={() => signIn()} altText="Log In">
+            Log In
+          </ToastAction>
+        ),
+      });
+    } else if (session?.user.role === "Candidate") {
+      return toast({
+        variant: "destructive",
+        title: "Uh oh! You are not Authorized  .",
+        description:
+          "To access these  resource please switch your account to Employear. ",
+        action: (
+          <ToastAction onClick={() => signIn()} altText="Switch">
+            Switch
+          </ToastAction>
+        ),
+      });
+    } else router.push("/dashboard/postJob");
+  };
   return (
     <>
       <header
@@ -133,15 +173,46 @@ const Header = () => {
                   </ul>
                 </nav>
               </div>
-              <div className="flex items-center justify-end pr-16 lg:pr-0 gap-3">
-                <Button className="bg-primary-500 max-sm:hidden">
+              <div className="flex items-center justify-end pr-16 lg:pr-0 gap-3 relative">
+                <Button
+                  className="bg-primary-500 max-sm:hidden"
+                  onClick={HandleNavigatingToPostJob}
+                >
                   Post Jobs
                 </Button>
-                <Button>
-                  <Link href="/signin" className="  ">
+
+                {session?.user ? (
+                  <div className="relative">
+                    <div className="flex items-center gap-2 cursor-pointer ">
+                      <Avatar>
+                        <AvatarImage src="https://github.com/shadcn." />
+                        <AvatarFallback className="text-black">
+                          {session?.user?.FirstName?.charAt(0) +
+                            session?.user?.user?.LastName?.charAt(0)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <p className="text-gray-500 text-small-regular">
+                        My Account
+                      </p>
+                      <ChevronDown className="text-indigo-300" />
+                    </div>
+                    <div
+                      className={`navbar absolute right-0 z-30 w-[250px] rounded border-[.5px] border-body-color/50  py-4 px-6 duration-300  bg-primary/[20%]  dark:border-body-color/20  lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${
+                        navbarOpen
+                          ? "visibility top-full opacity-100"
+                          : "invisible top-[120%] opacity-0"
+                      }`}
+                    >
+                      hello
+                    </div>
+                  </div>
+                ) : (
+                  <Button onClick={() => signIn()}>
+                    {/* <Link href="/signin" className="  "> */}
                     Sign In
-                  </Link>
-                </Button>
+                    {/* </Link> */}
+                  </Button>
+                )}
 
                 <div>
                   <ThemeButton />

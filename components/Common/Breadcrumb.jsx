@@ -1,6 +1,9 @@
+"use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Breadcrumb = ({ pageName, description }) => {
+  const router = useRouter();
   return (
     <>
       <section className="relative z-10 overflow-hidden pt-28 lg:pt-[150px]">
@@ -20,12 +23,13 @@ const Breadcrumb = ({ pageName, description }) => {
               <div className="text-end">
                 <ul className="flex items-center md:justify-end">
                   <li className="flex items-center">
-                    <Link
+                    <p
+                      onClick={() => router.back()}
                       href="/"
-                      className="pr-1 text-base font-medium text-body-color hover:text-primary"
+                      className="pr-1 text-base font-medium text-body-color hover:text-primary cursor-pointer"
                     >
-                      Home
-                    </Link>
+                      Previouse Page
+                    </p>
                     <span className="mr-3 block h-2 w-2 rotate-45 border-t-2 border-r-2 border-body-color"></span>
                   </li>
                   <li className="text-base font-medium text-primary">

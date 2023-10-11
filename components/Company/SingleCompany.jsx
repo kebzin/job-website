@@ -4,7 +4,6 @@ import { Button } from "../ui/button";
 import { Link2Icon } from "lucide-react";
 
 const SingleCompany = ({ data }) => {
-  console.log(data.data);
   return (
     <div className="container">
       <div className="flex  gap-3 mt-10 mb-20 max-lg:flex-wrap">

@@ -1,7 +1,5 @@
 "use client";
-
 import React, { useState } from "react";
-
 import { CompanyCategory } from "../Common/constant";
 
 import {
@@ -18,29 +16,19 @@ import {
   CommandInput,
   CommandItem,
 } from "@/components/ui/command";
+import { Button } from "../ui/button";
+
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { ArrowDown, Check } from "lucide-react";
-import { Button } from "../ui/button";
-
-const CompanyFilter = ({ originalData, setdata, setShowClearFilter }) => {
+const CandidateFilter = () => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
-
-  const HandleFiltering = (value) => {
-    let filteredData = [...originalData];
-    filteredData = filteredData.filter((job) => job.gender === value);
-    if (filteredData.length === 0) {
-      setShowClearFilter(true);
-    }
-    setdata(filteredData);
-  };
-
   return (
-    <div className="bg-primary/[10%] py-7 px-6  flex flex-col gap-5 min-w-[270px]">
+    <div className="bg-primary/[10%] py-7 px-6  flex flex-col gap-5 min-w-[270px] max-lg:hidden ">
       <h1 className="text-center mb-3 text-heading3-bold">Filter</h1>
 
       {/* h3 */}
@@ -81,7 +69,7 @@ const CompanyFilter = ({ originalData, setdata, setShowClearFilter }) => {
                   >
                     <Check
                       className={` mr-2 h-4 w-4
-                   ${value === element.name ? "opacity-100" : `opacity-0`}`}
+               ${value === element.name ? "opacity-100" : `opacity-0`}`}
                     />
                     {element.name}
                   </CommandItem>
@@ -92,11 +80,11 @@ const CompanyFilter = ({ originalData, setdata, setShowClearFilter }) => {
         </Popover>
       </div>
 
-      {/* <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2">
         <span className=" text-gray-500 ">Gender Base </span>
         <Select
           o
-          onValueChange={(value) => HandleFiltering(value)}
+          //   onValueChange={(value) => HandleFiltering(value)}
           className=""
         >
           <SelectTrigger className="text-dark w-ful py-6">
@@ -107,23 +95,23 @@ const CompanyFilter = ({ originalData, setdata, setShowClearFilter }) => {
             <SelectItem value="Female">Female</SelectItem>
             <SelectItem value="All Gender">All Gender</SelectItem>
           </SelectContent>
-        </Select> */}
-      {/* <div className="flex flex-col gap-2">
-          <span className=" text-gray-500 ">Urgency </span>
-          <Select onValueChange={(value) => HandleUrgent(value)} className="">
-            <SelectTrigger className="text-dark w-ful py-6">
-              <SelectValue className="text-dark" placeholder="Job Urgency" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="Urgent">Urgent</SelectItem>
-              <SelectItem value="Normal">Normal</SelectItem>
-              <SelectItem value="All Types">All types</SelectItem>
-            </SelectContent>
-          </Select>
-        </div> */}
-      {/* </div> */}
+        </Select>
+        {/* <div className="flex flex-col gap-2">
+      <span className=" text-gray-500 ">Urgency </span>
+      <Select onValueChange={(value) => HandleUrgent(value)} className="">
+        <SelectTrigger className="text-dark w-ful py-6">
+          <SelectValue className="text-dark" placeholder="Job Urgency" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="Urgent">Urgent</SelectItem>
+          <SelectItem value="Normal">Normal</SelectItem>
+          <SelectItem value="All Types">All types</SelectItem>
+        </SelectContent>
+      </Select>
+    </div>  */}
+      </div>
     </div>
   );
 };
 
-export default CompanyFilter;
+export default CandidateFilter;

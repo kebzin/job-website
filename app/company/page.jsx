@@ -20,8 +20,6 @@ const Company = async ({ searchParams }) => {
   // Deep convert the entire data object to plain objects
   const dataPlain = deepConvertToPlainObject(data);
 
-  console.log(dataPlain.companies);
-
   return (
     <>
       <Breadcrumb

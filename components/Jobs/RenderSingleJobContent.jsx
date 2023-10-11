@@ -9,7 +9,7 @@ const RenderSingleJobContent = ({ data }) => {
       <h1 className="mb-5 text-heading3-bold font-bold  sm:text-3xl">
         Job Description
       </h1>
-      <p className="text-base font-medium leading-relaxed text-body-color line-clamp-6">
+      <p className="text-base font-medium  text-body-color leading-loose">
         {data?.description}
       </p>
 
@@ -17,13 +17,13 @@ const RenderSingleJobContent = ({ data }) => {
         {" "}
         Responsibilities
       </h1>
-      <p className="text-base font-medium leading-relaxed text-body-color line-clamp-6">
+      <p className="text-base font-medium leading-loose text-body-color ">
         {data?.responsibilities}
       </p>
       <h1 className="mb-5 text-heading3-bold font-bold  sm:text-3xl mt-5">
         Skill & Requirement
       </h1>
-      <p className="text-base font-medium leading-relaxed text-body-color  line-clamp-6">
+      <p className="text-base font-medium leading-loose text-body-color  ">
         {data?.requirements}
       </p>
 

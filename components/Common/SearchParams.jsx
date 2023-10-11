@@ -20,13 +20,13 @@ const SearchParams = ({ placeholder, candidate }) => {
         ? router.push(`/jobs`)
         : candidate === "company"
         ? router.push(`/company`)
-        : router.push(`/candidate`);
+        : router.push(`/candidates`);
     } else {
       candidate === true
         ? router.push(`/jobs?search=${query}`)
         : candidate === "company"
         ? router.push(`/company?search=${query}`)
-        : router.push(`/Employears?search=${query}`);
+        : router.push(`/candidates?search=${query}`);
     }
   }, [query, router, candidate]);
 

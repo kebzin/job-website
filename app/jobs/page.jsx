@@ -3,6 +3,9 @@ import JobContainer from "@/components/Jobs/JobContainer";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import { FetchAllJobs } from "../../lib/actions/jobeAction";
 const dynamic = "force-dynamic";
+const deepConvertToPlainObject = (obj) => {
+  return JSON.parse(JSON.stringify(obj));
+};
 
 const JobList = async ({ searchParams }) => {
   const page =
@@ -42,6 +45,7 @@ const JobList = async ({ searchParams }) => {
     updatedAt: job.updatedAt,
   }));
 
+  const deepFormat = deepConvertToPlainObject(sanitizedJobs);
   return (
     <>
       <Breadcrumb
@@ -52,7 +56,7 @@ const JobList = async ({ searchParams }) => {
       <PaginationComponent
         page={page}
         limit={limit}
-        totalJobCount={data.totalJobCount}
+        totalJobCount={data.deepFormat}
         SkiptAmount={data?.SkiptAmount}
         HasNextPage={data?.isNextPAge}
         isPreviousPage={data?.isPreviousPage}

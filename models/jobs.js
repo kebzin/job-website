@@ -67,7 +67,16 @@ const JobSchema = new mongoose.Schema(
       type: String,
       default: "Active",
     },
-
+    Category: {
+      type: String, //
+      required: true,
+      default: "",
+    },
+    companyId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Company",
+      default: "",
+    },
     location: {
       type: String, //
       required: true,
@@ -81,7 +90,18 @@ const JobSchema = new mongoose.Schema(
       type: String,
     },
     applicants: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "User", default: "" },
+      {
+        user: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+          default: "",
+        },
+        applicationStatus: {
+          type: String,
+          enum: ["Pending", "Reviewed", "Rejected"],
+          default: "Pending",
+        },
+      },
     ],
   },
   { timestamps: true }

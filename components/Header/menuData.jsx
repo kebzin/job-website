@@ -20,7 +20,7 @@ const menuData = [
   {
     id: 4,
     title: "Candidates",
-    path: "/candidateds",
+    path: "/candidates",
     newTab: false,
   },
   {

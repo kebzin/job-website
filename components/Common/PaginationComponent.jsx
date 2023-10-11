@@ -41,7 +41,6 @@ const PaginationComponent = ({
             prefetch={false}
             href={`/jobs/?page=${page > 1 ? page - 1 : 1}&limit=${limit}`}
           >
-            {" "}
             prev page
           </Link>
         </Button>
