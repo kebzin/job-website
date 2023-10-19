@@ -13,14 +13,7 @@ const userSchema = new mongoose.Schema(
       trim: true,
       maxlength: [50, "Last name cannot exceed 50 characters."],
     },
-    UserName: {
-      type: String,
-      required: [true, "Username is required."],
-      unique: true,
-      trim: true,
-      minlength: [4, "Username should be at least 4 characters long."],
-      maxlength: [50, "Username cannot exceed 50 characters."],
-    },
+
     Email: {
       type: String,
       required: [true, "Email is required."],
@@ -37,17 +30,32 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "Candidate",
     },
-    skills: [{ type: String }],
+    Education_Level: { type: String, default: "" },
+    About: { type: String, default: "" },
     regonizein: { type: String },
 
     age: {
       type: String,
       default: "",
     },
-    // PhoneNumber: {
-    //   type: String,
-    //   default: "",
-    // },
+    Education: [
+      {
+        SchoolOrCollege: { type: String, default: "" },
+        year: { type: String, default: "" },
+        description: { type: String, default: "" },
+        Company: { type: String, default: "" },
+      },
+    ],
+
+    WorkOrExperience: [
+      {
+        jobTitle: { type: String, default: "" },
+        year: { type: String, default: "" },
+        Company: { type: String, default: "" },
+        description: { type: String, default: "" },
+      },
+    ],
+    aboutme: { type: String, default: "" },
     Address: { type: String, require: true, default: "" },
     Gender: {
       type: String,

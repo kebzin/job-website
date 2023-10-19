@@ -1,22 +1,66 @@
 "use client";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { addUser } from "@/lib/actions/userAction";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 const SignupPage = () => {
-  const formSchema = z.object({
-    Email: z.string().min(2).max(50),
-    Password: z.string().min(0).max(1000),
-  });
+  const { register, handleSubmit } = useForm();
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const { toast } = useToast();
+
+  const onSubmit = async (data) => {
+    setLoading(true);
+    // Call the signIn function with the provided email and password
+    const newUser = {
+      FirstName: data.name,
+      LastName: data.lastName,
+      Email: data.email,
+      Password: data.password,
+    };
+    try {
+      const result = await addUser({ newUser });
+      if (result.status !== 200) {
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: result.message,
+          action: <ToastAction altText="Try again">Try again</ToastAction>,
+        }),
+          setLoading(false);
+      } else if (result.status === 200) {
+        return (
+          toast({
+            variant: "",
+            title: "Success",
+            description: ` ${result.message}. You are being redirect to the login page. please enter your credentials`,
+          }),
+          setLoading(false),
+          router.push("/signin")
+        );
+      }
+    } catch (error) {
+      console.error("Sgn-up error:", error);
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "Oops something went wrong whild registering user.",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      }),
+        setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <section className="relative z-10 overflow-hidden pt-36 pb-16 md:pb-20 lg:pt-[180px] lg:pb-28">
@@ -73,18 +117,35 @@ const SignupPage = () => {
                   </p>
                   <span className="hidden h-[1px] w-full max-w-[60px] bg-body-color sm:block"></span>
                 </div>
-                <form>
+                <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="mb-8">
                     <label
                       htmlFor="name"
                       className="mb-3 block text-sm font-medium  "
                     >
                       {" "}
-                      Full Name{" "}
+                      First Name{" "}
                     </label>
                     <input
+                      {...register("name")}
                       type="text"
                       name="name"
+                      placeholder="Enter your full name"
+                      className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                    />
+                  </div>
+                  <div className="mb-8">
+                    <label
+                      htmlFor="name"
+                      className="mb-3 block text-sm font-medium  "
+                    >
+                      {" "}
+                      Last Name{" "}
+                    </label>
+                    <input
+                      {...register("lastName")}
+                      type="text"
+                      name="lastName"
                       placeholder="Enter your full name"
                       className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                     />
@@ -95,9 +156,10 @@ const SignupPage = () => {
                       className="mb-3 block text-sm font-medium "
                     >
                       {" "}
-                      Work Email{" "}
+                      Email{" "}
                     </label>
                     <input
+                      {...register("email")}
                       type="email"
                       name="email"
                       placeholder="Enter your Email"
@@ -113,6 +175,7 @@ const SignupPage = () => {
                       Your Password{" "}
                     </label>
                     <input
+                      {...register("password")}
                       type="password"
                       name="password"
                       placeholder="Enter your Password"
@@ -165,7 +228,7 @@ const SignupPage = () => {
                   </div>
                   <div className="mb-6">
                     <button className="flex w-full items-center justify-center rounded-md bg-primary py-4 px-9 text-base font-medium  transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
-                      Sign up
+                      {loading === true ? "Processing" : "Sign up"}
                     </button>
                   </div>
                 </form>

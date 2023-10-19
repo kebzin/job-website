@@ -5,7 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials"; // Import Cre
 import User from "../../../../models/userModul";
 import bcryptjs from "bcryptjs";
 
-const handler = NextAuth({
+export const authOptions = {
   pages: {
     signIn: "/signin",
     newUser: "/signup", // New users will be directed here on first sign in (leave the property out if not of interest)
@@ -92,6 +92,8 @@ const handler = NextAuth({
       }
     },
   },
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

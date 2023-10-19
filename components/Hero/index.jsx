@@ -1,42 +1,91 @@
+"use client";
 import Link from "next/link";
+import { Button } from "../ui/button";
+import { ToastAction } from "../ui/toast";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useTransition } from "react";
+import { useToast } from "../ui/use-toast";
+import SearchParams from "../Common/SearchParams";
 
 const Hero = () => {
+  const { data: session } = useSession();
+  const router = useRouter();
+  let [isPending, startTransition] = useTransition();
+
+  const { toast } = useToast();
+  const HandleNavigatingToPostJob = () => {
+    if (!session?.user) {
+      return toast({
+        variant: "destructive",
+        title: "Uh oh! You are not login  .",
+        description:
+          "To access these  resources and unlock their full potential, you must first log in to your accoun.",
+        action: (
+          <ToastAction onClick={() => signIn()} altText="Log In">
+            Log In
+          </ToastAction>
+        ),
+      });
+    } else if (session?.user.role === "Candidate") {
+      return toast({
+        variant: "destructive",
+        title: "Uh oh! You are not Authorized  .",
+        description:
+          "To access these  resource please switch your account to Employear. ",
+        action: (
+          <ToastAction
+            onClick={() => startTransition(() => HandleAccountSwitch())}
+            altText="Switch"
+          >
+            {isPending === true ? "Switching Account.." : "Switch Accout"}
+          </ToastAction>
+        ),
+      });
+    } else router.push("/dashboard/postJob");
+  };
   return (
     <>
       <section
         id="home"
-        className="relative z-10 overflow-hidden pt-[120px] mt-10 pb-16 md:pt-[150px] md:pb-[120px] xl:pt-[180px] xl:pb-[160px] 2xl:pt-[210px] 2xl:pb-[200px] "
+        className="relative z-10  pt-[120px] pb-10 md:pt-[150px] md:pb-[120px] xl:pt-[180px] xl:pb-[160px] 2xl:pt-[100px] 2xl:pb-[80px]"
       >
         <div className="container">
-          <div className="-mx-4 flex flex-wrap">
+          <div className="-mx-4 flex flex-wrap pb-5">
             <div className="w-full px-4">
               <div
                 className="wow fadeInUp mx-auto max-w-[800px] text-center"
                 data-wow-delay=".2s"
               >
-                <h1 className="mb-5 text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
-                  Free and Open-Source Next.js Template for Startup & SaaS
+                <h1 className="mb-5 text-heading1-bold font-bold max-sm:text-heading2-semibold">
+                  Startup: Your gateway to career in inovation.
                 </h1>
                 <p className="mb-12 text-base font-medium !leading-relaxed text-body-color dark:text-white dark:opacity-90 sm:text-lg md:text-xl">
-                  Startup is free Next.js template for startups and SaaS
-                  business websites comes with all the essential pages,
-                  components, and sections you need to launch a complete
-                  business website, built-with Next 13.x and Tailwind CSS.
+                  Startup a careers innovation. your gateway to find exciting
+                  opportunities in the job industery. our platform connect you
+                  withe companies on the forefront of inovation. Whether you're
+                  an experienced proffesional or just starting out, we provided
+                  job listing to match your skill an asperiation
                 </p>
-                <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
-                  <Link
-                    href="https://nextjstemplates.com/templates/saas-starter-startup"
-                    className="rounded-md bg-primary py-4 px-8 text-base font-semibold text-white duration-300 ease-in-out hover:bg-primary/80"
+
+                <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0  ">
+                  <Button
+                    className="bg-primary-500  py-6"
+                    onClick={HandleNavigatingToPostJob}
                   >
-                    🔥 Get Pro
-                  </Link>
-                  <Link
-                    href="https://github.com/NextJSTemplates/startup-nextjs"
-                    className="rounded-md bg-black/20 py-4 px-8 text-base font-semibold text-black duration-300 ease-in-out hover:bg-black/30 dark:bg-white/20 dark:text-white dark:hover:bg-white/30"
-                  >
-                    Star on GitHub
-                  </Link>
+                    🔥 Post Jobs
+                  </Button>
+                  <Button className="bg-primary-500  py-6">
+                    <Link href="/candidates">See Candidates</Link>
+                  </Button>
                 </div>
+                <br />
+
+                <SearchParams
+                  candidate={"home"}
+                  placeholder={"Search for available jobs"}
+                />
+                <br />
               </div>
             </div>
           </div>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -17,9 +17,15 @@ const CompanyContainer = ({ companies }) => {
   const [data, setData] = useState(originalData);
   const [sortOrder, setSortOrder] = useState(""); // Default sorting order is newest
   const [showClearFilter, setShowClearFilter] = useState();
+  useEffect(() => {
+    setData(companies);
+  }, [companies]);
 
   const filterJobs = () => {
     let filteredData = [...originalData]; // Create a copy of the original data to avoid mutating it
+    useEffect(() => {
+      setData(companies);
+    }, [companies]);
 
     // Apply sorting
     if (sortOrder === "newest") {
@@ -101,7 +107,7 @@ const CompanyContainer = ({ companies }) => {
               </Button>
             </div>
           )}
-          <div className="flex items-center gap-2 flex-wrap justify-self-center">
+          <div className="grid grid-cols-3 gap-3  max-sm:grid-cols-1  max-xl:grid-cols-2">
             {data.map((job) => {
               return (
                 <RenderCompany key={job._id} data={job} setdata={setData} />

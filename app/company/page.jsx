@@ -17,6 +17,10 @@ const Company = async ({ searchParams }) => {
     typeof searchParams.search === "string" ? searchParams.search : undefined;
   const data = await FetchAllCompanies({ page, limit, query: search });
 
+  if (data.status === 500) {
+    throw new Error("failed to fetch data");
+  }
+
   // Deep convert the entire data object to plain objects
   const dataPlain = deepConvertToPlainObject(data);
 

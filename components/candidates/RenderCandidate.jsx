@@ -9,10 +9,9 @@ import { Clock2, Landmark, MapPin } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import PresetActions from "../Common/DeleteAction";
-const RenderCandidate = ({ viewingApplicant }) => {
+const RenderCandidate = ({ viewingApplicant, data, circleName }) => {
   const { resolvedTheme } = useTheme();
-
-  const skil = [{}, {}, {}, {}, {}, {}];
+  console.log(circleName);
 
   return (
     <Card
@@ -26,13 +25,13 @@ const RenderCandidate = ({ viewingApplicant }) => {
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
         <div>
-          <Link href={`/company/`}>
+          <Link href={`/candidates/${data._id}`}>
             <h3
               className={`mb-4 text-2xl font-bold leading-tight tracking-wider ${
                 resolvedTheme === "dark" ? "text-primary" : "text-primary"
               }`}
             >
-              {"Kebba Waiga"}
+              {data?.FirstName + " " + data?.LastName}
             </h3>
           </Link>
           <div className="w-full">
@@ -43,40 +42,21 @@ const RenderCandidate = ({ viewingApplicant }) => {
 
             <span className="flex items-center text-gray-500 text-small-regular mt-4 ">
               <MapPin />
-              {"Serrekunda"} The Gambia
+              {data?.location} The Gambia
             </span>
 
             <span className="flex items-center text-gray-500 text-small-regular w-full ">
               <Clock2 className="text-primary-500 pr-2" />{" "}
               <i className="mr-2">Join At</i>
-              {/* <TimeAgo date={"2 days ago"} /> */} 2 days ago
+              <TimeAgo date={data?.createdAt} />
             </span>
-          </div>
-          <div className="pt-3">
-            <p className="text-gray-500 font-bold text-heading4-medium border-b-2 border-gray-400">
-              {viewingApplicant === true ? null : "Skills"}
-            </p>
-
-            {viewingApplicant === true ? null : (
-              <div className="flex gap-3 flex-wrap items-start  pt-4">
-                {skil.map((skills, index) => (
-                  <Button
-                    key={index}
-                    variant="outline"
-                    className="bg-gray-300 "
-                  >
-                    React
-                  </Button>
-                ))}
-              </div>
-            )}
           </div>
 
           {/* send to a frend */}
           <div className="flex  gap-2 flex-wrap items-center mt-3">
             {viewingApplicant === true ? null : (
               <Button className="">
-                <Link href={`/company/`}>View profile</Link>
+                <Link href={`/candidates/${data._id}`}>View profile</Link>
               </Button>
             )}
 

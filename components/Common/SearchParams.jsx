@@ -20,6 +20,8 @@ const SearchParams = ({ placeholder, candidate }) => {
         ? router.push(`/jobs`)
         : candidate === "company"
         ? router.push(`/company`)
+        : candidate === "home"
+        ? router.push("/")
         : router.push(`/candidates`);
     } else {
       candidate === true

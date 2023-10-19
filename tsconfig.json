@@ -32,14 +32,21 @@
     "components/About/AboutSectionTwo.jsx",
     "components/About/AboutSectionOne.jsx",
     "app/about/page.jsx",
-    "components/Common/SectionTitle.jsx",
-    "components/Common/SectionTitle.jsx",
+    "components/Common/SectionTitle.tsx",
+    "components/Common/SectionTitle.tsx",
     "app/contact/page.jsx",
     "components/Contact/NewsLatterBox.jsx",
     "components/Contact/index.jsx",
     "components/Footer/index.jsx",
     "components/ScrollToTop/index.jsx",
-    "components/Common/ScrollUp.jsx"
+    "components/Common/ScrollUp.jsx",
+    "components/Common/uploadthing.js",
+    "components/Features/featuresData.jsx",
+    "components/Features/SingleFeature.jsx",
+    "components/Features/index.jsx",
+    "components/Hero/index.jsx",
+    "components/Hero/index.jsx",
+    "components/Contact/AboutSectionOne.jsx"
   ],
   "exclude": ["node_modules"]
 }

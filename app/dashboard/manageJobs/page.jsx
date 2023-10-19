@@ -4,15 +4,27 @@ import React from "react";
 import ManageJobeCard from "./ManageJobeCard";
 import { JobThatBelong_to_Me } from "@/lib/actions/jobeAction";
 import { Button } from "@/components/ui/button";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 const deepConvertToPlainObject = (obj) => {
   return JSON.parse(JSON.stringify(obj));
 };
 
 const page = async () => {
-  const id = "65047a7e1e9ab17564c82ced";
-  const data = await JobThatBelong_to_Me({ id });
+  const session = await getServerSession(authOptions);
 
-  const DeepFormat = deepConvertToPlainObject(data);
+  if (!session?.user) {
+    redirect(
+      `/signin?callbackUrl=${encodeURIComponent("/dashboard/manageJobs")}`
+    );
+  }
+  const id = session?.user.id;
+
+  const data = await JobThatBelong_to_Me({ id });
+  console.log(data?.jobs);
+
+  const DeepFormat = deepConvertToPlainObject(data.jobs);
+  const CompanyDeepFormat = deepConvertToPlainObject(data.MyCompany);
   return (
     <div>
       <Breadcrumb
@@ -27,7 +39,12 @@ const page = async () => {
         {/* job card */}
         <div className=" grid grid-cols-3 gap-3  max-sm:grid-cols-1  max-xl:grid-cols-2 ">
           {DeepFormat.map((job, index) => (
-            <ManageJobeCard job={job} key={index} />
+            <ManageJobeCard
+              job={job}
+              id={id}
+              key={index}
+              company={CompanyDeepFormat}
+            />
           ))}
         </div>
       </div>

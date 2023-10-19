@@ -3,13 +3,14 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 const SigninPage = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const { data: session } = useSession();
 
   const { register, handleSubmit } = useForm();
 
@@ -26,12 +27,9 @@ const SigninPage = () => {
       // Handle authentication error (e.g., display an error message)
       setLoading(false);
       console.error("Sign-in error:", result.error);
-    } else {
-      // Authentication was successful, you can redirect to another page or update UI as needed.
-      console.log("Sign-in successful");
-      // Example: Redirect to the dashboard
-      router.push("/");
-    }
+    } else if (session?.user.role === "Employear") {
+      router.push("/Onboarding");
+    } else router.push("/onboarding");
   };
   return (
     <>

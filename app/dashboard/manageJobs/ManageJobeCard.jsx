@@ -1,9 +1,7 @@
 "use client";
 import React from "react";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Textarea } from "@/components/ui/textarea";
 
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -15,13 +13,9 @@ import {
   Bookmark,
   Clock2,
   FileEdit,
-  Heart,
-  HeartHandshake,
   Landmark,
-  Mail,
   MapPin,
   SendHorizontal,
-  Share2,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
@@ -35,10 +29,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { DeleteJob } from "@/lib/actions/jobeAction";
 
-const ManageJobeCard = ({ job }) => {
+const ManageJobeCard = ({ job, id, company }) => {
   const { resolvedTheme } = useTheme();
 
+  const { toast } = useToast();
+
+  const HandleJobDelete = async (id) => {
+    const response = await DeleteJob({ id });
+    if (response.status === 200) {
+      toast({
+        variant: "destructive",
+        title: "Job Deleted",
+        description: response?.message,
+      });
+    }
+  };
   return (
     <Card
       className={`mt-3 w-full relative ${
@@ -47,8 +54,11 @@ const ManageJobeCard = ({ job }) => {
     >
       <CardContent className="flex gap-3 py-5  flex-wrap">
         <Avatar className="w-20 h-20 rounded-md">
-          <AvatarImage src="https://github.com/shadcn.png" />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarImage src="https://github.com/kebzing.png" />
+          <AvatarFallback>
+            {company?.companyName?.charAt(0) +
+              company?.companyName?.slice(" ")[1].charAt(0)}
+          </AvatarFallback>
         </Avatar>
         <div className="">
           <Link href={`/jobs/${job?._id}`}>
@@ -64,7 +74,7 @@ const ManageJobeCard = ({ job }) => {
             <div className="flex items-center gap-2 flex-wrap">
               <span className="text-primary-500 text-small-regular flex items-center gap-2">
                 <Landmark />
-                Oryx Energies Gambia Limited
+                {company?.companyName}
               </span>
               <span className="flex items-center text-gray-500 text-small-regular ">
                 <MapPin />
@@ -101,8 +111,11 @@ const ManageJobeCard = ({ job }) => {
                 variant="outline"
                 className="ml-auto flex-1 text-primary-500"
               >
-                <FileEdit />
-                Edit Job
+                <Link href={`/dashboard/manageJobs/editjob/${job?._id}`}>
+                  {" "}
+                  <FileEdit />
+                  Edit Job
+                </Link>
               </Button>
               <Button
                 variant="outline"
@@ -124,6 +137,7 @@ const ManageJobeCard = ({ job }) => {
               </Select>
 
               <PresetActions
+                HandleActionPerform={HandleJobDelete}
                 id={job?._id}
                 PressActionButton={"Delete"}
                 dialogTitle={"Delete"}

@@ -46,7 +46,7 @@ import {
 } from "@/components/ui/popover";
 import { ArrowDown, Check } from "lucide-react";
 import { CompanyCategory } from "@/components/Common/constant";
-const PostJobs = () => {
+const PostJobs = ({ id }) => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -54,14 +54,13 @@ const PostJobs = () => {
 
   const formSchema = z.object({
     Job_Title: z.string().min(2),
-
     Offered_Salary: z.string().min(2).max(50),
     experienceLevel: z.string().min(2).max(50),
     Job_Location: z.string().min(2).max(50),
     Gender: z.string().min(2).max(50),
     Part_Time_Or_Full_Time: z.string().min(2).max(50),
-    urgent: z.string().min(2).max(50),
-    requirements: z.string().min(2).max(500),
+    urgent: z.string().min(1).max(50),
+    requirements: z.string().min(2),
     Application_Deadline: z.date(),
     Category: z.string().min(2),
     responsibilities: z.string().min(2),
@@ -110,7 +109,7 @@ const PostJobs = () => {
     try {
       const formValues = form.getValues();
       const job = {
-        userId: "65047a7e1e9ab17564c82ced", //
+        userId: id, //
         jobTitle: formValues.Job_Title, //
         description: formValues.Description, //
         salary: formValues.Offered_Salary, //
@@ -126,17 +125,29 @@ const PostJobs = () => {
 
         // You can also access specific field values like this:
       };
-      const responde = PostNewJob({ job });
+      const responde = await PostNewJob({ job });
       if (responde.status === 200) {
         toast({
           variant: "outline",
           title: "Post Job",
           description: "New job have been added succesfully",
         });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Error Occured",
+          description: "OH Something went wrong while Posting Job ",
+        });
+        setLoading(false);
       }
     } catch (error) {
       setLoading(false);
       console.error("Error while switching account:", error);
+      toast({
+        variant: "destructive",
+        title: "Error Occured",
+        description: `OH Something went wrong ${error.message}`,
+      });
     } finally {
       setLoading(false);
     }
@@ -262,7 +273,7 @@ const PostJobs = () => {
 
                       <SelectContent>
                         <SelectItem value="Male">Male</SelectItem>
-                        <SelectItem value="Femal">Female</SelectItem>
+                        <SelectItem value="Female">Female</SelectItem>
                         <SelectItem value="All Gender">All Gender</SelectItem>
                       </SelectContent>
                     </Select>

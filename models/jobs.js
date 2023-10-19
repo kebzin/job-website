@@ -21,7 +21,7 @@ const JobSchema = new mongoose.Schema(
     requirements: {
       //
       type: String,
-      required: true,
+      default: true,
     },
     applicationStatus: {
       //
@@ -32,12 +32,13 @@ const JobSchema = new mongoose.Schema(
     experienceLevel: {
       //
       type: String,
+      default: "",
     },
 
     salary: {
       //
       type: String,
-      require: true,
+      default: "",
     },
     linkedinProfile: {
       //
@@ -46,6 +47,7 @@ const JobSchema = new mongoose.Schema(
     featuredUntil: {
       //
       type: Date,
+      default: "",
     },
 
     applicationDeadLine: {
@@ -54,13 +56,13 @@ const JobSchema = new mongoose.Schema(
     },
     urgent: {
       //
-      type: Boolean,
-      require: true,
+      type: String,
+      default: "",
     },
     gender: {
       //
       type: String,
-      require: true,
+      default: "",
     },
     status: {
       //
@@ -69,7 +71,6 @@ const JobSchema = new mongoose.Schema(
     },
     Category: {
       type: String, //
-      required: true,
       default: "",
     },
     companyId: {
@@ -79,7 +80,7 @@ const JobSchema = new mongoose.Schema(
     },
     location: {
       type: String, //
-      required: true,
+      default: "",
     },
     isFeatured: {
       //
@@ -89,20 +90,6 @@ const JobSchema = new mongoose.Schema(
     jobType: {
       type: String,
     },
-    applicants: [
-      {
-        user: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
-          default: "",
-        },
-        applicationStatus: {
-          type: String,
-          enum: ["Pending", "Reviewed", "Rejected"],
-          default: "Pending",
-        },
-      },
-    ],
   },
   { timestamps: true }
 );

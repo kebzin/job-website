@@ -20,22 +20,10 @@ const PresetActions = ({
   dialogTitle,
   dialogMessage,
   PressActionButton,
+  HandleActionPerform,
 }) => {
   const [showDeleteDialog, setShowDeleteDialog] = React.useState(false);
-  const startTransition = useTransition();
-
-  const handleDelete = async () => {
-    try {
-      // startTransition(() => {
-      //   const response = UpdateJob();
-      // });
-      // toast({
-      //   description: "This preset has been deleted.",
-      // });
-      setShowDeleteDialog(false);
-    } catch (error) {}
-  };
-
+  let [isPending, startTransition] = useTransition();
   return (
     <div className="flex-1">
       <Button onClick={() => setShowDeleteDialog(true)} variant="destructive">
@@ -53,8 +41,15 @@ const PresetActions = ({
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <Button variant="destructive" onClick={handleDelete}>
-              {PressActionButton}
+            <Button
+              variant="destructive"
+              onClick={() =>
+                startTransition(() => {
+                  HandleActionPerform(id), setShowDeleteDialog(false);
+                })
+              }
+            >
+              {isPending === true ? "processing " : PressActionButton}
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>

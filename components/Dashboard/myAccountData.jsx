@@ -32,15 +32,10 @@ const MyAccountData = [
     label: "Manage Jobs",
     employear: true,
   },
-  {
-    icone: <Factory color="gray" />,
-    route: "/employer/manage-jobs",
-    label: "All Applicants",
-    employear: true,
-  },
+
   {
     icone: <User color="gray" />,
-    route: "/employer-account/company-profile",
+    route: "/dashboard/myProfile",
     label: "My Profile",
     employear: false,
   },
@@ -58,19 +53,19 @@ const MyAccountData = [
   },
   {
     icone: <Factory color="gray" />,
-    route: "/employer-account/manage-jobs",
+    route: "/dashboard/cvManager",
     label: "CV Manager",
     employear: false,
   },
   {
     icone: <MessageSquare color="gray" />,
-    route: "/employer-account/applicants",
-    label: "Messages",
+    route: "/dashboard/notification",
+    label: "Notification",
     employear: "default",
   },
   {
     icone: <LockIcon color="gray" />,
-    route: "/employer-account/applicants",
+    route: "/dashboard/changePassword",
     label: "Change Password",
     employear: "default",
   },

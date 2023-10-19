@@ -1,32 +1,45 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import menuData from "./menuData";
 import ThemeButton from "./ThemeToggleButton";
 import { Button } from "../ui/button";
-import { usePathname, useRouter } from "next/navigation";
+import { redirect, usePathname, useRouter } from "next/navigation";
 import { signOut, signIn, useSession } from "next-auth/react";
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ChevronDown } from "lucide-react";
+import MyAccount from "../Dashboard/MyAccount";
+import { updateOffeser } from "@/lib/actions/userAction";
+import { useDebounce } from "use-debounce";
 
 const Header = () => {
   // Navbar toggle
+
+  // states
+  const { data: session } = useSession();
   const [navbarOpen, setNavbarOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [sticky, setSticky] = useState(false);
+  let [isPending, startTransition] = useTransition();
+
+  // hooks
+  const router = useRouter();
+  const pathname = usePathname();
+  const { toast } = useToast();
+
+  // functions
   const navbarToggleHandler = () => {
+    setProfileOpen(false);
     setNavbarOpen(!navbarOpen);
   };
   const ProfileToggleHandeler = () => {
-    setProfileOpen(!navbarOpen);
+    setNavbarOpen(false);
+    setProfileOpen((prev) => !prev);
   };
-  const { profileOpen, setProfileOpen } = useState(false);
 
-  const { toast } = useToast();
-
-  // Sticky Navbar
-  const [sticky, setSticky] = useState(false);
   const handleStickyNavbar = () => {
     if (window.scrollY >= 80) {
       setSticky(true);
@@ -48,10 +61,52 @@ const Header = () => {
     }
   };
 
-  const pathname = usePathname();
-  const router = useRouter();
-  const { data: session } = useSession();
-  console.log(session);
+  const HandleAccountSwitch = async () => {
+    try {
+      const user = {
+        role: session?.user?.role === "Candidate" ? "Employear" : "Candidate",
+      };
+      const result = await updateOffeser({ user, id: session?.user.id });
+      if (result.status === 200) {
+        toast({
+          variant: "",
+          title: "Succesfully Switched",
+          description: ` Account Succesfully switched. ${result.message}`,
+        });
+
+        setTimeout(() => {
+          toast({
+            variant: "",
+            title: "Sign Out triggered",
+            description: `We are sign you out because you just switched your account: don't worry it is for security reason. you can sign in back again using your email and password`,
+          });
+        }, 3000);
+
+        setTimeout(async () => {
+          await signOut();
+        }, 9900);
+      } else {
+        return toast({
+          variant: "destructive",
+          title: "Uh oh! something went Wrong   .",
+          description: `An Error Occured. Error${result.message}`,
+          action: (
+            <ToastAction onClick={() => signIn()} altText="Log In">
+              Log In
+            </ToastAction>
+          ),
+        });
+      }
+    } catch (error) {
+      console.log("Error in account switch", error?.message || "unknown");
+      toast({
+        variant: "destructive",
+        title: "Uh oh! something went wrong  .",
+        description: `Error in account switching ${error.message}`,
+      });
+    }
+  };
+
   const HandleNavigatingToPostJob = () => {
     if (!session?.user) {
       return toast({
@@ -72,8 +127,11 @@ const Header = () => {
         description:
           "To access these  resource please switch your account to Employear. ",
         action: (
-          <ToastAction onClick={() => signIn()} altText="Switch">
-            Switch
+          <ToastAction
+            onClick={() => startTransition(() => HandleAccountSwitch())}
+            altText="Switch"
+          >
+            {isPending === true ? "Switching Account.." : "Switch Accout"}
           </ToastAction>
         ),
       });
@@ -108,31 +166,9 @@ const Header = () => {
             </div>
             <div className="flex w-full items-center justify-between px-4">
               <div>
-                <button
-                  onClick={navbarToggleHandler}
-                  id="navbarToggler"
-                  aria-label="Mobile Menu"
-                  className="absolute right-4 top-1/2 block translate-y-[-50%] rounded-lg px-3 py-[6px] ring-primary focus:ring-2 lg:hidden"
-                >
-                  <span
-                    className={`relative my-1.5 block h-0.5 w-[30px] bg-primary/[20%]  transition-all duration-300  ${
-                      navbarOpen ? " top-[7px] rotate-45" : " "
-                    }`}
-                  />
-                  <span
-                    className={`relative my-1.5 block h-0.5 w-[30px] bg-primary/[20%] transition-all duration-300 ${
-                      navbarOpen ? "opacity-0 " : " "
-                    }`}
-                  />
-                  <span
-                    className={`relative my-1.5 block h-0.5 w-[30px] bg-primary/[20%] transition-all duration-300  ${
-                      navbarOpen ? " top-[-8px] -rotate-45" : " "
-                    }`}
-                  />
-                </button>
                 <nav
                   id="navbarCollapse"
-                  className={`navbar absolute right-0 z-30 w-[250px] rounded border-[.5px] border-body-color/50  py-4 px-6 duration-300  bg-primary/[20%]  dark:border-body-color/20  lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${
+                  className={`navbar absolute right-0 z-30 w-[250px] rounded border-[.5px] border-body-color/50  py-4 px-6 duration-300  bg-primary/80 dark:border-body-color/20  lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${
                     navbarOpen
                       ? "visibility top-full opacity-100"
                       : "invisible top-[120%] opacity-0"
@@ -182,13 +218,16 @@ const Header = () => {
                 </Button>
 
                 {session?.user ? (
-                  <div className="relative">
-                    <div className="flex items-center gap-2 cursor-pointer ">
+                  <div className="relative ">
+                    <div
+                      className="flex items-center gap-2 cursor-pointer  "
+                      onClick={ProfileToggleHandeler}
+                    >
                       <Avatar>
                         <AvatarImage src="https://github.com/shadcn." />
                         <AvatarFallback className="text-black">
                           {session?.user?.FirstName?.charAt(0) +
-                            session?.user?.user?.LastName?.charAt(0)}
+                            session?.user?.LastName?.charAt(0)}
                         </AvatarFallback>
                       </Avatar>
                       <p className="text-gray-500 text-small-regular">
@@ -197,13 +236,11 @@ const Header = () => {
                       <ChevronDown className="text-indigo-300" />
                     </div>
                     <div
-                      className={`navbar absolute right-0 z-30 w-[250px] rounded border-[.5px] border-body-color/50  py-4 px-6 duration-300  bg-primary/[20%]  dark:border-body-color/20  lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${
-                        navbarOpen
-                          ? "visibility top-full opacity-100"
-                          : "invisible top-[120%] opacity-0"
-                      }`}
+                      className={`fixed zoom-out-100  bg-white shadow-lg py-5 rounded-md`}
                     >
-                      hello
+                      {profileOpen && (
+                        <MyAccount handleclosed={setProfileOpen} />
+                      )}
                     </div>
                   </div>
                 ) : (
@@ -213,7 +250,28 @@ const Header = () => {
                     {/* </Link> */}
                   </Button>
                 )}
-
+                <button
+                  onClick={navbarToggleHandler}
+                  id="navbarToggler"
+                  aria-label="Mobile Menu"
+                  className="absolute right-4 top-1/2 block translate-y-[-50%] rounded-lg px-3 py-[6px] ring-primary focus:ring-2 lg:hidden cursor-pointer"
+                >
+                  <span
+                    className={`relative my-1.5 block h-0.5 w-[30px] bg-primary/[20%]  transition-all duration-300  cursor-pointer ${
+                      navbarOpen ? " top-[7px] rotate-45" : " "
+                    }`}
+                  />
+                  <span
+                    className={`relative my-1.5 block h-0.5 w-[30px] bg-primary/[20%] transition-all duration-300  cursor-pointer${
+                      navbarOpen ? "opacity-0 " : " "
+                    }`}
+                  />
+                  <span
+                    className={`relative my-1.5 block h-0.5 w-[30px] bg-primary/[20%] transition-all duration-300 cursor-pointer  ${
+                      navbarOpen ? " top-[-8px] -rotate-45" : " "
+                    }`}
+                  />
+                </button>
                 <div>
                   <ThemeButton />
                 </div>

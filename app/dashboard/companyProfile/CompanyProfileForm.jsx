@@ -20,10 +20,10 @@ import { Input } from "@/components/ui/input";
 
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
-// import { UpdatecompanyData } from "@/lib/actions/company.Action";
+import { UpdatecompanyData } from "@/lib/actions/companyActions";
 import { useRouter } from "next/navigation";
 
-const CompanyProfileForm = ({ company }) => {
+const CompanyProfileForm = ({ company, id }) => {
   // const { user } = useContext(UserContext);
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
@@ -44,21 +44,22 @@ const CompanyProfileForm = ({ company }) => {
   });
 
   //Initialize React Hook Form with schema and default values
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      // Company_Name: company.company?.companyName,
-      // Company_Email: company?.company?.companyEmail,
-      // Company_Phone_Number: company?.company?.companyPhoneNumber,
-      // Company_Website: company?.company?.companyWebsite,
-      // Company_Address: company?.company?.companyAddress,
-      // Industry: company?.company?.industry,
-      // twitter: company?.company?.twitter,
-      // linkedin: company?.company?.linkedin,
-      // facebook: company?.company?.facebook,
-      // instagram: company?.company?.instagram,
-      // Focusesd: company?.company?.focused,
-      // About_Company: company?.company?.aboutCompany,
+      Company_Name: company?.companyName,
+      Company_Email: company?.companyEmail,
+      Company_Phone_Number: company?.companyPhoneNumber,
+      Company_Website: company?.companyWebsite,
+      Company_Address: company?.companyAddress,
+      Industry: company?.industry,
+      twitter: company?.twitter,
+      linkedin: company?.linkedin,
+      facebook: company?.facebook,
+      instagram: company?.instagram,
+      Focusesd: company?.focused,
+      About_Company: company?.aboutCompany,
     },
   });
 
@@ -83,7 +84,8 @@ const CompanyProfileForm = ({ company }) => {
 
       const response = await UpdatecompanyData({
         companyData,
-        userId: user._id,
+        userId: id,
+        id: company._id,
       });
       if (response.status === 200) {
         return toast({

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchParams from "@/components/Common/SearchParams";
 import JobFilter from "@/app/jobs/JobFilter";
 import JobRender from "@/app/jobs/JobRender";
@@ -24,6 +24,10 @@ const JobContainer = ({ jobs }) => {
     setSortOrder(e);
     filterJobs(); // Call the filtering function with the selected values
   };
+
+  useEffect(() => {
+    setData(jobs);
+  }, [jobs]);
 
   const filterJobs = () => {
     let filteredData = [...originalData]; // Create a copy of the original data to avoid mutating it
