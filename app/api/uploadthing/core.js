@@ -1,5 +1,4 @@
 import { createUploadthing } from "uploadthing/next";
-import { FileRouter } from "uploadthing/next";
 import CV from "../../../models/CVManager";
 
 const f = createUploadthing();
@@ -23,8 +22,4 @@ export const FileRouter = {
 
       console.log("file url", file.url);
     }),
-
-  // profilePicture: f(["image"])
-  //   .middleware(({ req }) => auth(req))
-  //   .onUploadComplete((data) => console.log("file", data)),
 };

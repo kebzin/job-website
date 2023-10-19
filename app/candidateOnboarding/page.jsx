@@ -6,7 +6,6 @@ import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
 import { GetSingUser } from "@/lib/actions/userAction";
 import { authOptions } from "../api/auth/[...nextauth]/route";
-import { truncate } from "fs";
 
 const deepConvertToPlainObject = (obj) => {
   return JSON.parse(JSON.stringify(obj));

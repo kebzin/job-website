@@ -34,7 +34,7 @@ const SingleJobContent = ({ data }) => {
                 <div>
                   <DialogDescription>
                     Your are not login. to applied for a job please login in to
-                    you account or if you don't have an account created one.
+                    you account or if you don not have an account created one.
                   </DialogDescription>
                   <Button onClick={() => signIn()}>Sign In</Button>
                 </div>

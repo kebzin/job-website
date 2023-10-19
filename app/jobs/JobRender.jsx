@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 const JobRender = ({ data, setdata }) => {
   const { resolvedTheme } = useTheme();
   const { toast } = useToast();

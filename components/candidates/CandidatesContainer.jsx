@@ -116,9 +116,10 @@ const CandidatesContainer = ({ candidate }) => {
                 </h3>
               </>
             ) : (
-              data.map((candidat) => {
+              data.map((candidat, index) => {
                 return (
                   <RenderCandidate
+                    key={index}
                     data={candidat}
                     setdata={setData}
                     originalData={originalData}

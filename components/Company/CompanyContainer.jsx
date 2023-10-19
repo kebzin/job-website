@@ -22,11 +22,6 @@ const CompanyContainer = ({ companies }) => {
   }, [companies]);
 
   const filterJobs = () => {
-    let filteredData = [...originalData]; // Create a copy of the original data to avoid mutating it
-    useEffect(() => {
-      setData(companies);
-    }, [companies]);
-
     // Apply sorting
     if (sortOrder === "newest") {
       filteredData.sort(

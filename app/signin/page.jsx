@@ -29,7 +29,7 @@ const SigninPage = () => {
       console.error("Sign-in error:", result.error);
     } else if (session?.user.role === "Employear") {
       router.push("/Onboarding");
-    } else router.push("/onboarding");
+    } else router.push("/candidateOnboarding");
   };
   return (
     <>

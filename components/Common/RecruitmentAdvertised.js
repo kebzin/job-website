@@ -15,7 +15,12 @@ const RecruitmentAdvertise = () => {
         </div>
 
         <div>
-          <Image src={"/images/recruit.png"} width={300} height={300} />
+          <Image
+            src={"/images/recruit.png"}
+            alt="recruitment"
+            width={300}
+            height={300}
+          />
         </div>
       </div>
       <Button className="py-6 px-8 bg-primary-500">Start Recrutting Now</Button>

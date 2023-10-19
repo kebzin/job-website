@@ -63,7 +63,7 @@ const Hero = () => {
                 <p className="mb-12 text-base font-medium !leading-relaxed text-body-color dark:text-white dark:opacity-90 sm:text-lg md:text-xl">
                   Startup a careers innovation. your gateway to find exciting
                   opportunities in the job industery. our platform connect you
-                  withe companies on the forefront of inovation. Whether you're
+                  withe companies on the forefront of inovation. Whether you are
                   an experienced proffesional or just starting out, we provided
                   job listing to match your skill an asperiation
                 </p>
@@ -73,7 +73,7 @@ const Hero = () => {
                     className="bg-primary-500  py-6"
                     onClick={HandleNavigatingToPostJob}
                   >
-                    🔥 Post Jobs
+                    Post Jobs
                   </Button>
                   <Button className="bg-primary-500  py-6">
                     <Link href="/candidates">See Candidates</Link>

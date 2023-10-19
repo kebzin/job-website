@@ -11,7 +11,7 @@ const RenderApplicant = ({ result }) => {
 
   useEffect(() => {
     setdata(result);
-  }, []);
+  }, [result]);
   const HandleApplicationApproved = async () => {
     const data = {
       id: id,
@@ -25,7 +25,7 @@ const RenderApplicant = ({ result }) => {
         {result?.applicant.length} Applicant for this job
         <div className=" grid grid-cols-3 gap-3  max-sm:grid-cols-1  max-xl:grid-cols-2 ">
           {data?.map((data, index) => (
-            <div className="bg-primary/10 py-5 px-5 rounded-md">
+            <div key={index} className="bg-primary/10 py-5 px-5 rounded-md">
               <div className="flex gap-3 py-5  flex-wrap">
                 <Avatar className="w-20 h-20 rounded-md">
                   <AvatarImage src="https://github.com/shadcn.png" />
