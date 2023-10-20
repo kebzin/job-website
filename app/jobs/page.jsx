@@ -48,16 +48,13 @@ const JobList = async ({ searchParams }) => {
   const deepFormat = deepConvertToPlainObject(sanitizedJobs);
   return (
     <>
-      <Breadcrumb
-        pageName="Available Jobs"
-        description="Her are the list of Avelable jobs you can look for ."
-      />
-      <JobContainer jobs={sanitizedJobs} />
+      <Breadcrumb pageName="Available Jobs" description="" />
+      <JobContainer jobs={deepFormat} />
       <PaginationComponent
         page={page}
         limit={limit}
-        totalJobCount={data.deepFormat}
-        SkiptAmount={data?.SkiptAmount}
+        totalJobCount={data.totalJobCount}
+        SkiptAmount={data?.skip === 0 ? sanitizedJobs?.length : data?.skip}
         HasNextPage={data?.isNextPAge}
         isPreviousPage={data?.isPreviousPage}
       />

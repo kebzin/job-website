@@ -184,15 +184,18 @@ const JobRender = ({ data, setdata }) => {
                   </DialogContent>
                 </Dialog>
 
-                <Button className="" onClick={HandleSaveJobe}>
+                <Button
+                  className="bg-primary/50 hover:bg-primary/30"
+                  onClick={HandleSaveJobe}
+                >
                   {save === false ? <Heart /> : <HeartHandshake />}
                   {save === false ? "save" : "saved"}
                 </Button>
 
-                <Button>
+                <Button className="bg-primary/50 hover:bg-primary/30">
                   <Share2 /> Share
                 </Button>
-                <Button>
+                <Button className="bg-primary/50 hover:bg-primary/30">
                   <Link href={`/jobs/${data.id}`}>View Job</Link>
                 </Button>
               </div>
