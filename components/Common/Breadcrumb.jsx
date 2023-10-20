@@ -15,7 +15,7 @@ const Breadcrumb = ({ pageName, description, hidden = false }) => {
                 </h1>
                 <p
                   className={`text-base font-medium leading-relaxed text-body-color ${
-                    hidden === undefined || false ? "max-sm:hidden" : ""
+                    hidden === false ? "max-sm:hidden" : ""
                   }`}
                 >
                   {description}

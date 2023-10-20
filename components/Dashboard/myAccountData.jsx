@@ -47,7 +47,7 @@ const MyAccountData = [
   },
   {
     icone: <ScrollText color="gray" />,
-    route: "/employer-account/resume",
+    route: "/dashboard/appliedJobs",
     label: "Applied Jobs",
     employear: false,
   },
