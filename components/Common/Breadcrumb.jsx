@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 
-const Breadcrumb = ({ pageName, description, hidden }) => {
+const Breadcrumb = ({ pageName, description, hidden = false }) => {
   const router = useRouter();
   return (
     <>
