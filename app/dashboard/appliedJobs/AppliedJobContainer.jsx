@@ -10,7 +10,7 @@ import { useTheme } from "next-themes";
 import Link from "next/link";
 import React from "react";
 
-const AppliedJobContainer = () => {
+const AppliedJobContainer = ({ data }) => {
   const { resolvedTheme } = useTheme();
   const { toast } = useToast();
   return (
@@ -31,7 +31,7 @@ const AppliedJobContainer = () => {
                 resolvedTheme === "dark" ? "text-primary" : "text-primary"
               }`}
             >
-              {"data?.jobTitle"}
+              {data?.jobId?.jobTitle}
             </h3>
           </Link>
           <div className="">
@@ -42,38 +42,37 @@ const AppliedJobContainer = () => {
               </span>
               <span className="flex items-center text-gray-500 text-small-regular ">
                 <MapPin />
-                {"data?.location"} The Gambia
+                {data?.jobId?.location} The Gambia
               </span>
               <span className="flex items-center text-secondary-500 text-small-semiboldr">
                 <Bookmark />
-                {"data?.jobType"}
+                {data?.jobId?.jobType}
               </span>
             </div>
 
             <div className="py-5 max-md:hidden">
               <Label className="text-gray-600 ">Job Description</Label>
               <p className="text-gray-500  max-md:hidden text-small-semibold line-clamp-2">
-                {"data?.description"}
+                {data?.jobId?.description}
               </p>
             </div>
 
             <span className="flex items-center text-gray-500 text-small-regular w-full ">
               <Clock2 className="text-primary-500 pr-2" />
-              <TimeAgoComponent time={"data?.createdAt"} />
+              <TimeAgoComponent time={data?.createdAt} />
             </span>
             <span className="flex items-center text-small-regular text-gray-500">
               <Banknote className="text-primary-500 pr-2" />
-              {"data?.salary"} / Monthly
+              {data?.jobId?.salary} / Monthly
             </span>
             <div className="flex items-center justify-between w-full">
               <span className="flex items-center text-small-regular text-gray-500">
-                Status :
-                <span className="text-primary-500">{"data?.status"}</span>
+                Status :<span className="text-primary-500">{data?.status}</span>
               </span>
               {
-                //   <Button className="flex items-center text-small-regular text-primary-500 bg-indigo-100 hover:bg-indigo-300">
-                //     {data?.urgent === true ? "Urgent" : "Normal"}
-                //   </Button>
+                <Button className="flex items-center text-small-regular text-primary-500 bg-indigo-100 hover:bg-indigo-300">
+                  {data?.jobId?.urgent === true ? "Urgent" : "Normal"}
+                </Button>
               }
             </div>
 
