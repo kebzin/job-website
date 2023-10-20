@@ -12,7 +12,7 @@ import TimeAgo from "react-timeago";
 
 const RenderJobeOverview = ({ data }) => {
   return (
-    <div className="bg-primary/[20%] py-5 px-7 rounded-md  w-full max-lg:max-w-min  max-lg:min-w-md">
+    <div className="bg-primary/[20%] py-5 px-7 rounded-md  w-full max-lg:max-w-min max-sm:min-w-full  max-lg:min-w-md">
       <h3 className="text-heading4-medium pb-10">Job Overview</h3>
       <div className="flex flex-col gap-8">
         <div className="flex items-center justify-between">

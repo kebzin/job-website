@@ -27,9 +27,9 @@ const RenderSingleJobContent = ({ data }) => {
         {data?.requirements}
       </p>
 
-      <div className="flex items-center flex-wrap gap-4 mt-6">
+      <div className="flex items-center gap-4 mt-6 flex-wrap">
         <h3 className="text-body1-bold">Share this job </h3>
-        <div className="flex items-start gap-2">
+        <div className="flex items-start gap-2 flex-wrap">
           <Button className="bg-primary-500 flex">
             <Facebook />
 
