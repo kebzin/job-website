@@ -179,6 +179,7 @@ const Header = () => {
                       <li key={menuItem.id} className="group relative">
                         {menuItem.path ? (
                           <Link
+                            onClick={() => setNavbarOpen((prev) => !prev)}
                             href={menuItem.path}
                             className={`flex py-2 text-base  group-hover:opacity-70  lg:mr-0 lg:inline-flex lg:py-6 lg:px-0 ${
                               pathname === menuItem.path ? "text-primary" : ""
@@ -231,7 +232,7 @@ const Header = () => {
                         </AvatarFallback>
                       </Avatar>
                       <p className="text-gray-500 text-small-regular">
-                        My Account
+                        Account
                       </p>
                       <ChevronDown className="text-indigo-300" />
                     </div>
@@ -244,7 +245,10 @@ const Header = () => {
                     </div>
                   </div>
                 ) : (
-                  <Button onClick={() => signIn()}>
+                  <Button
+                    className="max-sm:text-tiny-medium"
+                    onClick={() => signIn()}
+                  >
                     {/* <Link href="/signin" className="  "> */}
                     Sign In
                     {/* </Link> */}

@@ -50,7 +50,7 @@ const JobList = async ({ searchParams }) => {
     <>
       <Breadcrumb
         pageName="Available Jobs"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
+        description="Her are the list of Avelable jobs you can look for ."
       />
       <JobContainer jobs={sanitizedJobs} />
       <PaginationComponent

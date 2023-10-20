@@ -57,7 +57,7 @@ const JobRender = ({ data, setdata }) => {
   };
 
   return (
-    <div className=" py-2 px-3  w-full">
+    <div className=" w-full">
       {/* render filter */}
 
       {/* job card */}
@@ -65,9 +65,9 @@ const JobRender = ({ data, setdata }) => {
       <Card
         className={`mt-3 w-full ${
           resolvedTheme === "dark" ? "border-none" : ""
-        } wow fadeInUp  rounded-md bg-primary/[10%] p-5  `}
+        } wow fadeInUp  rounded-md bg-primary/[10%] pt-3 pb-3  `}
       >
-        <CardContent className="flex gap-3 py-5  flex-wrap">
+        <CardContent className="flex gap-3  flex-wrap">
           <Avatar className="w-20 h-20 rounded-md">
             <AvatarImage src="https://github.com/shadcn.png" />
             <AvatarFallback>CN</AvatarFallback>
@@ -75,7 +75,7 @@ const JobRender = ({ data, setdata }) => {
           <div>
             <Link href={`/jobs/${data.id}`}>
               <h3
-                className={`mb-4 text-2xl font-bold leading-tight tracking-wider ${
+                className={`mb-4 text-2xl max-sm:font-normal  font-bold  leading-tight tracking-wider ${
                   resolvedTheme === "dark" ? "text-primary" : "text-primary"
                 }`}
               >

@@ -44,7 +44,7 @@ const SearchParams = ({ placeholder, candidate }) => {
         />
       </div>
 
-      <Button className="p-7 bg-primary">Search</Button>
+      <Button className="p-7 bg-primary max-sm:hidden">Search</Button>
     </div>
   );
 };

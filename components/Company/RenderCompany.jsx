@@ -15,9 +15,9 @@ const RenderCompany = ({ data }) => {
     <Card
       className={`mt-3 w-full ${
         resolvedTheme === "dark" ? "border-none" : ""
-      } wow fadeInUp  rounded-md bg-primary/[10%] p-5  `}
+      } wow fadeInUp  rounded-md bg-primary/[10%] pt-3 pb-3  `}
     >
-      <CardContent className="flex gap-3 py-5  flex-wrap">
+      <CardContent className="flex gap-3   flex-wrap">
         <Avatar className="w-20 h-20 rounded-md">
           <AvatarImage src="https://github.com/shadcn.png" />
           <AvatarFallback>CN</AvatarFallback>

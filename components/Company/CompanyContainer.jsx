@@ -49,23 +49,25 @@ const CompanyContainer = ({ companies }) => {
       />
 
       <div className="flex gap-4 py-10 ">
-        <div className="max-lg:hidden">
+        <div className="hidden">
           <CompanyFilter />
         </div>
 
         <div className="w-full">
           <div className="flex justify-between flex-wrap items-center">
-            <Label>
+            <Label className="mb-3">
               Showing <span className="text-primary">4</span> Results
             </Label>
             <div className="flex items-center gap-3 max-sm:flex-wrap">
-              <Button
-                onClick={clearFilter}
-                variant="destructive"
-                className="w-full py-6 marker"
-              >
-                Clear Filter
-              </Button>
+              {showClearFilter && (
+                <Button
+                  onClick={clearFilter}
+                  variant="destructive"
+                  className="w-full py-6 marker"
+                >
+                  Clear Filter
+                </Button>
+              )}
 
               <Select
                 onValueChange={(e) => handleSortChange(e)}

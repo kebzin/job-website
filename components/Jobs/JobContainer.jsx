@@ -70,18 +70,20 @@ const JobContainer = ({ jobs }) => {
 
         <div>
           <div className="flex justify-between flex-wrap items-center">
-            <Label>
+            <Label className="mb-3">
               Showing <span className="text-primary">{data?.length}</span>{" "}
               Results
             </Label>
             <div className="flex items-center gap-3 max-sm:flex-wrap">
-              <Button
-                onClick={clearFilter}
-                variant="destructive"
-                className="w-full py-6 marker"
-              >
-                Clear Filter
-              </Button>
+              {showClearFilter && (
+                <Button
+                  onClick={clearFilter}
+                  variant="destructive"
+                  className="w-full py-6 marker"
+                >
+                  Clear Filter
+                </Button>
+              )}
 
               <Select
                 onValueChange={(e) => handleSortChange(e)}
