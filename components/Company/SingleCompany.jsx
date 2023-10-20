@@ -11,7 +11,7 @@ const SingleCompany = ({ data }) => {
           <h1 className="mb-5 text-heading3-bold font-bold  sm:text-3xl">
             About Company
           </h1>
-          <p className="text-base font-medium leading-relaxed text-body-color line-clamp-6">
+          <p className="text-base font-medium leading-relaxed text-body-color ">
             {data?.aboutCompany}
           </p>
 
@@ -19,7 +19,7 @@ const SingleCompany = ({ data }) => {
             {" "}
             Focused on
           </h1>
-          <p className="text-base font-medium leading-relaxed text-body-color line-clamp-6">
+          <p className="text-base font-medium leading-relaxed text-body-color ">
             {data?.focused}
           </p>
         </div>

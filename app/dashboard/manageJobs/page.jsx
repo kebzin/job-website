@@ -10,7 +10,7 @@ const deepConvertToPlainObject = (obj) => {
   return JSON.parse(JSON.stringify(obj));
 };
 
-const page = async () => {
+const page = async ({}) => {
   const session = await getServerSession(authOptions);
 
   if (!session?.user) {
@@ -21,13 +21,13 @@ const page = async () => {
   const id = session?.user.id;
 
   const data = await JobThatBelong_to_Me({ id });
-  console.log(data?.jobs);
 
   const DeepFormat = deepConvertToPlainObject(data.jobs);
   const CompanyDeepFormat = deepConvertToPlainObject(data.MyCompany);
   return (
     <div>
       <Breadcrumb
+        hidden={true}
         pageName={"Manage Your Jobs"}
         description={
           "These listings display the jobs you have posted thus far in your job portal account. This overview allows you to easily access and manage each job listing, making it simple to stay organized and make any necessary updates or adjustments as needed."

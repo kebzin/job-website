@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 
-const Breadcrumb = ({ pageName, description }) => {
+const Breadcrumb = ({ pageName, description, hidden }) => {
   const router = useRouter();
   return (
     <>
@@ -13,7 +13,11 @@ const Breadcrumb = ({ pageName, description }) => {
                 <h1 className="mb-5 text-heading3-bold font-bold  sm:text-3xl">
                   {pageName}
                 </h1>
-                <p className="text-base font-medium leading-relaxed text-body-color max-sm:hidden">
+                <p
+                  className={`text-base font-medium leading-relaxed text-body-color ${
+                    hidden === undefined || false ? "max-sm:hidden" : ""
+                  }`}
+                >
                   {description}
                 </p>
               </div>

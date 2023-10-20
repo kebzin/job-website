@@ -50,9 +50,9 @@ const ManageJobeCard = ({ job, id, company }) => {
     <Card
       className={`mt-3 w-full relative ${
         resolvedTheme === "dark" ? "border-none" : ""
-      } wow fadeInUp  rounded-md bg-primary/[10%] p-5  `}
+      } wow fadeInUp  rounded-md bg-primary/[10%]`}
     >
-      <CardContent className="flex gap-3 py-5  flex-wrap">
+      <CardContent className="flex gap-3 py-1  flex-wrap">
         <Avatar className="w-20 h-20 rounded-md">
           <AvatarImage src="https://github.com/kebzing.png" />
           <AvatarFallback>
@@ -94,7 +94,7 @@ const ManageJobeCard = ({ job, id, company }) => {
               <Banknote className="text-primary-500 pr-2" />
               {job?.salary} / Monthly
             </span>
-            <div className="flex items-center justify-between w-full">
+            <div className="flex items-center justify-between w-full flex-wrap gap-2">
               <span className="flex items-center text-small-regular text-gray-500">
                 Status :<span className="text-primary-500">{job?.status}</span>
               </span>
@@ -107,13 +107,9 @@ const ManageJobeCard = ({ job, id, company }) => {
               }
             </div>
             <div className="flex flex-wrap-reverse gap-3">
-              <Button
-                variant="outline"
-                className="ml-auto flex-1 text-primary-500"
-              >
+              <Button variant="outline" className=" text-primary-500">
                 <Link href={`/dashboard/manageJobs/editjob/${job?._id}`}>
                   {" "}
-                  <FileEdit />
                   Edit Job
                 </Link>
               </Button>
