@@ -23,7 +23,7 @@ const Footer = () => {
                   <Image
                     src="images/logo/logo.svg"
                     alt="logo"
-                    className="hidden w-full dark:block"
+                    className="hidden w-full "
                     width={140}
                     height={30}
                   />
@@ -94,15 +94,13 @@ const Footer = () => {
             </div>
 
             <div className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12">
-              <div className="mb-12 lg:mb-16">
-                <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
-                  Useful Links
-                </h2>
+              <div className="mb-5 ">
+                <h2 className="mb-3 text-xl font-bold ">Useful Links</h2>
                 <ul>
                   <li>
                     <a
                       href="/"
-                      className="mb-4 inline-block text-base font-medium text-body-color hover:text-primary"
+                      className="inline-block text-base font-medium text-body-color hover:text-primary"
                     >
                       {" "}
                       Blog{" "}
@@ -111,7 +109,7 @@ const Footer = () => {
                   <li>
                     <a
                       href="/"
-                      className="mb-4 inline-block text-base font-medium text-body-color hover:text-primary"
+                      className=" inline-block text-base font-medium text-body-color hover:text-primary"
                     >
                       {" "}
                       Pricing{" "}
@@ -131,61 +129,41 @@ const Footer = () => {
             </div>
 
             <div className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12">
-              <div className="mb-12 lg:mb-16">
-                <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
-                  Terms
-                </h2>
+              <div className="mt-3">
+                <h2 className="mb-3 text-xl font-bold">Terms</h2>
                 <ul>
+                  <li></li>
                   <li>
                     <a
                       href="/"
-                      className="mb-4 inline-block text-base font-medium text-body-color hover:text-primary"
-                    >
-                      {" "}
-                      TOS{" "}
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/"
-                      className="mb-4 inline-block text-base font-medium text-body-color hover:text-primary"
+                      className=" inline-block text-base font-medium text-body-color hover:text-primary"
                     >
                       {" "}
                       Privacy Policy{" "}
                     </a>
                   </li>
-                  <li>
-                    <a
-                      href="/"
-                      className="mb-4 inline-block text-base font-medium text-body-color hover:text-primary"
-                    >
-                      {" "}
-                      Refund Policy{" "}
-                    </a>
-                  </li>
+                  <li></li>
                 </ul>
               </div>
             </div>
 
             <div className="w-full px-4 md:w-1/2 lg:w-4/12 xl:w-3/12">
-              <div className="mb-12 lg:mb-16">
-                <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
-                  Support & Help
-                </h2>
+              <div className="mb-5">
+                <h2 className="mb-3 text-xl font-bold ">Support & Help</h2>
                 <ul>
                   <li>
                     <a
                       href="/"
-                      className="mb-4 inline-block text-base font-medium text-body-color hover:text-primary"
+                      className=" inline-block text-base font-medium text-body-color hover:text-primary"
                     >
                       {" "}
-                      Open Support Ticket{" "}
+                      Open Support Team{" "}
                     </a>
                   </li>
                   <li>
                     <a
                       href="/"
-                      className="mb-4 inline-block text-base font-medium text-body-color hover:text-primary"
+                      className="inline-block text-base font-medium text-body-color hover:text-primary"
                     >
                       {" "}
                       Terms of Use{" "}
@@ -208,9 +186,9 @@ const Footer = () => {
         <div className="bg-primary/10 py-8">
           <div className="container">
             <p className="text-center text-base text-body-color dark:text-white">
-              Template by UIdeck and{" "}
+              Design and Develop By{" "}
               <a href="https://nextjstemplates.com" rel="nofollow noopener">
-                Next.js Templates
+                Gamneeds Company LTD
               </a>
             </p>
           </div>

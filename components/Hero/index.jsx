@@ -58,7 +58,7 @@ const Hero = () => {
                 data-wow-delay=".2s"
               >
                 <h1 className="mb-5 text-heading1-bold font-bold max-sm:text-heading2-semibold">
-                  Startup: Your gateway to career in inovation.
+                  Startup Your gateway to career in inovation.
                 </h1>
                 <p className="mb-12 text-base font-medium !leading-relaxed text-body-color dark:text-white dark:opacity-90 sm:text-lg md:text-xl">
                   Startup a careers innovation. your gateway to find exciting
@@ -68,14 +68,14 @@ const Hero = () => {
                   job listing to match your skill an asperiation
                 </p>
 
-                <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0  ">
+                <div className="flex  items-center  gap-3 flex-wrap justify-center  ">
                   <Button
-                    className="bg-primary-500  py-6"
+                    className="bg-primary-500  py-6 max-sm:text-small-regular"
                     onClick={HandleNavigatingToPostJob}
                   >
                     Post Jobs
                   </Button>
-                  <Button className="bg-primary-500  py-6">
+                  <Button className="bg-primary-500  py-6 max-sm:text-small-regular">
                     <Link href="/candidates">See Candidates</Link>
                   </Button>
                 </div>
