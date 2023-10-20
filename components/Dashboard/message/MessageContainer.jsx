@@ -10,6 +10,7 @@ import {
 import { Input } from "../../ui/input";
 
 import { Separator } from "../../ui/separator";
+import TimeAgoComponent from "@/components/Common/TimeAgo";
 
 const MessageContainer = ({ notification }) => {
   return (
@@ -33,9 +34,9 @@ const MessageContainer = ({ notification }) => {
                 <>
                   <div
                     key={index}
-                    className="flex items-center justify-between space-x-4 hover:bg-secondary-500/25 py-4 px-4  rounded-md cursor-pointer"
+                    className="flex items-center justify-between space-x-4 hover:bg-secondary-500/25   rounded-md cursor-pointer"
                   >
-                    <div className="flex  space-x-4">
+                    <div className="flex  space-x-4 flex-wrap ">
                       <Avatar>
                         <AvatarImage src="/avatars/03.png" />
                         <AvatarFallback>
@@ -50,10 +51,14 @@ const MessageContainer = ({ notification }) => {
                             " " +
                             element?.senderId?.LastName}
                         </p>
-                        <CardDescription>{element?.title}</CardDescription>
+                        <CardDescription className={"max-sm:text-small-medium"}>
+                          {element?.title}
+                        </CardDescription>
                       </div>
                     </div>
-                    <p>{"2 days ago"}</p>
+                    <p className="max-sm:text-small-regular text-secondary-500">
+                      <TimeAgoComponent time={element?.createdAt} />
+                    </p>
                   </div>
                   <Separator className="" />
                 </>

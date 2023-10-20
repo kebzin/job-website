@@ -11,7 +11,6 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import AppliedForThisJob from "../Jobs/AppliedForThisJob";
-import { Textarea } from "../ui/textarea";
 import { signIn, useSession } from "next-auth/react";
 const SingleJobContent = ({ data }) => {
   const { data: session } = useSession();

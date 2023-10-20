@@ -8,7 +8,7 @@ import {
   Snail,
   Users,
 } from "lucide-react";
-import TimeAgo from "react-timeago";
+import TimeAgoComponent from "../Common/TimeAgo";
 
 const RenderJobeOverview = ({ data }) => {
   return (
@@ -23,8 +23,8 @@ const RenderJobeOverview = ({ data }) => {
 
           <p className="text-gray-500 text-small-semibold">
             {" "}
-            {data?.createdAt.toLocaleDateString()}
-            {/* <TimeAgo date={data?.createdAt} /> */}
+            {/* {data?.createdAt.toLocaleDateString()} */}
+            <TimeAgoComponent time={data?.createdAt} />
           </p>
         </div>
 
