@@ -16,7 +16,7 @@ import React from "react";
 
 const CompanyProfileCard = ({ data }) => {
   return (
-    <div className=" bg-primary/[20%] py-5 px-7 rounded-md min-w-max  w-full">
+    <div className=" bg-primary/[20%] py-5 px-7 rounded-md lg:min-w-max  w-full">
       <h3 className="text-heading4-medium pb-10">Company Profile</h3>
       <div className="flex gap-2">
         <Avatar className="w-20 h-20 rounded-md">
