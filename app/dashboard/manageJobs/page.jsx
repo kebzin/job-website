@@ -35,7 +35,9 @@ const page = async ({}) => {
       />
       <div className=" py-2 px-3  w-full">
         {/* render filter */}
-        <Button>You posted {DeepFormat.length} Jobs</Button>
+        <Button variant={"ghost"} className="text-small-medium">
+          You posted {DeepFormat.length} Jobs
+        </Button>
         {/* job card */}
         <div className=" grid grid-cols-3 gap-3  max-sm:grid-cols-1  max-xl:grid-cols-2 ">
           {DeepFormat.map((job, index) => (

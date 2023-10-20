@@ -99,7 +99,7 @@ const ManageJobeCard = ({ job, id, company }) => {
                 Status :<span className="text-primary-500">{job?.status}</span>
               </span>
               {
-                <Button className="flex items-center text-small-regular text-primary-500 bg-indigo-100 hover:bg-indigo-300">
+                <Button className="flex items-center max-sm:text-small-medium text-primary-500 bg-indigo-100 hover:bg-indigo-300">
                   <Link href={`/dashboard/manageJobs/${job?._id}`}>
                     Applicant
                   </Link>
@@ -107,7 +107,10 @@ const ManageJobeCard = ({ job, id, company }) => {
               }
             </div>
             <div className="flex flex-wrap-reverse gap-3">
-              <Button variant="outline" className=" text-primary-500">
+              <Button
+                variant="outline"
+                className=" text-primary-500 max-sm:text-small-medium"
+              >
                 <Link href={`/dashboard/manageJobs/editjob/${job?._id}`}>
                   {" "}
                   Edit Job
@@ -115,13 +118,16 @@ const ManageJobeCard = ({ job, id, company }) => {
               </Button>
               <Button
                 variant="outline"
-                className="ml-auto flex-1 text-primary-500"
+                className="ml-auto flex-1 text-primary-500 max-sm:text-small-medium"
               >
                 <Link href={`/jobs/${job?._id}`}> View Job</Link>
               </Button>
               <Select className="">
                 <SelectTrigger>
-                  <SelectValue placeholder="Job Status" />
+                  <SelectValue
+                    className="max-sm:text-small-medium"
+                    placeholder="Job Status"
+                  />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
