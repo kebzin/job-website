@@ -28,6 +28,8 @@ const SearchParams = ({ placeholder, candidate }) => {
         ? router.push(`/jobs?search=${query}`)
         : candidate === "company"
         ? router.push(`/company?search=${query}`)
+        : candidate === "home"
+        ? router.push(`/jobs?search=${query}`)
         : router.push(`/candidates?search=${query}`);
     }
   }, [query, router, candidate]);
