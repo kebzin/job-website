@@ -4,6 +4,7 @@ import { ConnectToMongoDB } from "../../../../lib/mongoDBConnection";
 import CredentialsProvider from "next-auth/providers/credentials"; // Import CredentialsProvider
 import User from "../../../../models/userModul";
 import bcryptjs from "bcryptjs";
+import { signOut } from "next-auth/react";
 
 export const authOptions = {
   pages: {
@@ -27,9 +28,8 @@ export const authOptions = {
         await ConnectToMongoDB();
         // Find the user in your database based on the provided username (email)
         const user = await User.findOne({ Email: credentials.email });
-
         if (!user) {
-          // User not found
+          console.log("incorrect email address");
           return null;
         }
 
@@ -44,6 +44,7 @@ export const authOptions = {
           return user;
         } else {
           // Password is incorrect
+
           return null;
         }
       },
@@ -88,7 +89,7 @@ export const authOptions = {
         return loginuser; // Include user data in the session
       } catch (error) {
         console.log("Error checking if user exists: ", error);
-        return false;
+        return error;
       }
     },
   },

@@ -16,7 +16,6 @@ const MyAccount = ({ handleclosed }) => {
   const { data: session } = useSession();
   const isEmployer = session?.user?.role === "Employear" ? true : false; // Set this value based on whether the user is an employer or a candidate
   const [switchValue, setSwitchValue] = useState(isEmployer);
-  console.log(isEmployer);
   const [ispending, startTransition] = useTransition();
   // hooks
   const { toast } = useToast();

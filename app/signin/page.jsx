@@ -6,30 +6,41 @@ import { useForm } from "react-hook-form";
 import { signIn, useSession } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { any } from "zod";
+import { useToast } from "@/components/ui/use-toast";
 
 const SigninPage = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const { data: session } = useSession();
-
+  const { toast } = useToast();
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
-    setLoading(true);
-    // Call the signIn function with the provided email and password
-    const result = await signIn("credentials", {
-      redirect: false, // Prevent automatic redirect
-      email: data.email, // Get email from the form input
-      password: data.password, // Get password from the form input
-    });
+    try {
+      setLoading(true);
+      // Call the signIn function with the provided email and password
+      const result = await signIn("credentials", {
+        redirect: false, // Prevent automatic redirect
+        email: data.email, // Get email from the form input
+        password: data.password, // Get password from the form input
+      });
 
-    if (result.error) {
-      // Handle authentication error (e.g., display an error message)
-      setLoading(false);
-      console.error("Sign-in error:", result.error);
-    } else if (session?.user.role === "Employear") {
-      router.push("/Onboarding");
-    } else router.push("/candidateOnboarding");
+      if (result.error === null || result.error === "CredentialsSignin") {
+        // Handle authentication error (e.g., display an error message)
+        setLoading(false);
+        return toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description:
+            "There was a problem with your request Pease check your email or password.",
+        });
+      } else if (session?.user.role === "Employear") {
+        router.push("/Onboarding");
+      } else router.push("/candidateOnboarding");
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>
@@ -105,7 +116,6 @@ const SigninPage = () => {
                       name="email"
                       placeholder="Enter your Email"
                       className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
-                      onch
                     />
                   </div>
                   <div className="mb-8">
