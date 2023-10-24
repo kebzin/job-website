@@ -41,7 +41,7 @@ const MyAccountData = [
   },
   {
     icone: <ArrowsUpFromLine color="gray" />,
-    route: "/employer-account/post-job",
+    route: "/dashboard/resumea",
     label: "My Resume",
     employear: false,
   },

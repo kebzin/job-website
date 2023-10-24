@@ -38,23 +38,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    Education: [
-      {
-        SchoolOrCollege: { type: String, default: "" },
-        year: { type: String, default: "" },
-        description: { type: String, default: "" },
-        Company: { type: String, default: "" },
-      },
-    ],
 
-    WorkOrExperience: [
-      {
-        jobTitle: { type: String, default: "" },
-        year: { type: String, default: "" },
-        Company: { type: String, default: "" },
-        description: { type: String, default: "" },
-      },
-    ],
     aboutme: { type: String, default: "" },
     Address: { type: String, require: true, default: "" },
     Gender: {
