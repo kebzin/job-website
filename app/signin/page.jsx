@@ -26,7 +26,7 @@ const SigninPage = () => {
         password: data.password, // Get password from the form input
       });
 
-      if (result.error === null || result.error === "CredentialsSignin") {
+      if (result.status === 401 || result.error === "CredentialsSignin") {
         // Handle authentication error (e.g., display an error message)
         setLoading(false);
         return toast({

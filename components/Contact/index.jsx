@@ -1,7 +1,62 @@
+"use client";
+import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
+import { useToast } from "../ui/use-toast";
 import NewsLatterBox from "./NewsLatterBox";
+import { useState } from "react";
+import { SendEmail } from "../../lib/actions/send";
 
 const Contact = () => {
+  // hooks
+  const [loading, setLoading] = useState(false);
+  const { toast } = useToast();
+  const { register, handleSubmit } = useForm();
+
+  // SendEmail
+  const onSubmit = async (data) => {
+    try {
+      setLoading(true);
+      const response = await SendEmail({
+        message: data.message,
+        email: data.email,
+        name: data.name,
+      });
+
+      console.log(response.data);
+      if (response.data.statusCode === 403) {
+        return (
+          toast({
+            variant: "destructive",
+            title: "Uh oh! Something went wrong.",
+            description: response.data.message,
+          }),
+          setLoading(false)
+        );
+      } else if (response.status === 500) {
+        return (
+          toast({
+            variant: "destructive",
+            title: "Uh oh! Something went wrong.",
+            description: response.message,
+          }),
+          setLoading(false)
+        );
+      }
+      return (
+        toast({
+          variant: "",
+          title: "Email Sent",
+          description:
+            "Email send Succesfully. our support team wil get back to you withen 24hrs",
+        }),
+        setLoading(false)
+      );
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <section id="contact" className="overflow-hidden py-16 md:py-20 lg:py-28">
       <div className="container">
@@ -18,7 +73,7 @@ const Contact = () => {
               <p className="mb-12 text-base font-medium text-body-color">
                 Our support team will get back to you ASAP via email.
               </p>
-              <form>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="-mx-4 flex flex-wrap">
                   <div className="w-full px-4 md:w-1/2">
                     <div className="mb-8">
@@ -29,7 +84,9 @@ const Contact = () => {
                         Your Name
                       </label>
                       <input
+                        {...register("Name")}
                         type="text"
+                        name="Name"
                         placeholder="Enter your name"
                         className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none "
                       />
@@ -44,6 +101,8 @@ const Contact = () => {
                         Your Email
                       </label>
                       <input
+                        {...register("email")}
+                        name="email"
                         type="email"
                         placeholder="Enter your email"
                         className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none  "
@@ -59,6 +118,7 @@ const Contact = () => {
                         Your Message
                       </label>
                       <textarea
+                        {...register("message")}
                         name="message"
                         rows={5}
                         placeholder="Enter your Message"
@@ -67,8 +127,14 @@ const Contact = () => {
                     </div>
                   </div>
                   <div className="w-full px-4">
-                    <Button className=" bg-primary  transition duration-300 ease-in-out ">
-                      Submit Ticket
+                    <Button
+                      disabled={loading}
+                      type="submit"
+                      className=" bg-primary  transition duration-300 ease-in-out "
+                    >
+                      {loading === true
+                        ? "Processing request"
+                        : " Submit Email"}
                     </Button>
                   </div>
                 </div>

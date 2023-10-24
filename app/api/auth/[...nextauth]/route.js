@@ -29,7 +29,6 @@ export const authOptions = {
         // Find the user in your database based on the provided username (email)
         const user = await User.findOne({ Email: credentials.email });
         if (!user) {
-          console.log("incorrect email address");
           return null;
         }
 
